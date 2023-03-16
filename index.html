@@ -1,12 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library App</title>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="./output.css" />
+  </head>
+  <body class="bg-white text-gray-900 dark:text-white dark:bg-gray-900 grid grid-rows-[auto_minmax(0,1fr)] font-sans">
+    <nav
+      class="flex justify-between items-center px-4 pt-6 pb-4 border-b border-b-gray-200 dark:border-b-gray-200/5"
+    >
+      <div>
+        <h1 class="font-bold text-2xl">Library</h1>
+        <span class="text-xs text-slate-500">By</span>
+          <div class="text-xs group relative inline">
+              <a
+                class="text-red-600 rounded hover:text-red-700 active:bg-red-700/10 transition-all"
+                href="https://github.com/Torelli"
+                target="_blank"
+                >Giovanni Torelli
+              </a>
+              <div
+                  class="opacity-0 -translate-x-1 whitespace-nowrap bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-center text-base rounded-lg py-2 absolute z-10 group-hover:translate-x-0 group-hover:opacity-100 -top-3 left-24 px-3 pointer-events-none transition-all"
+                >
+                  Check out my GitHub!
+                  <svg
+                    class="absolute text-gray-900 dark:text-white h-2 -left-2 bottom-4 rotate-90"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 255 255"
+                    xml:space="preserve"
+                  >
+                    <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+                  </svg>
+                </div>
+          </div>
+      </div>
+      <div>
+        <button id="theme-btn" class="group relative">
+          <i class="fa-solid fa-circle-half-stroke text-2xl"></i>
+          <div
+                  class="opacity-0 translate-x-1 whitespace-nowrap bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-center text-base rounded-lg py-2 absolute z-10 group-hover:translate-x-0 group-hover:opacity-100 -top-3 right-10 px-3 pointer-events-none transition-all"
+                >
+                  Turn on dark mode
+                  <svg
+                    class="absolute text-gray-900 dark:text-white h-2 -right-2 bottom-4 -rotate-90"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 255 255"
+                    xml:space="preserve"
+                  >
+                    <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+                  </svg>
+                </div>
+        </button>
+      </div>
+    </nav>
+    <main class="p-4 grid grid-cols-[repeat(auto-fill,_minmax(250px,1fr))] auto-rows-[minmax(250px,_1fr)] gap-6">
+        <article class="flex flex-col items-center justify-around bg-white border border-gray-200 dark:border-gray-200/5 dark:bg-gray-900 border-l-8 border-l-amber-400 dark:border-l-amber-400  pt-8 pb-6 px-4 rounded-lg shadow">
+            <i class="fa-solid fa-circle-plus text-7xl cursor-pointer text-gray-700 hover:text-gray-900 hover:scale-105 dark:text-gray-700 dark:hover:text-white transition-all"></i>
+            <h3 class="font-bold">Add new book</h3>
+        </article>
+        
+    </main>
+    <script src="./script.js"></script>
+    <script
+      src="https://kit.fontawesome.com/eb34185c6d.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
