@@ -1,73 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Library App</title>
-    <link rel="stylesheet" href="./output.css" />
-  </head>
-  <body class="bg-white text-gray-900 dark:text-white dark:bg-gray-900 grid grid-rows-[auto_minmax(0,1fr)] font-sans">
-    <nav
-      class="flex justify-between items-center px-4 pt-6 pb-4 border-b border-b-gray-200 dark:border-b-gray-200/5"
-    >
-      <div>
-        <h1 class="font-bold text-2xl">Library</h1>
-        <span class="text-xs text-slate-500">By</span>
-          <div class="text-xs group relative inline">
-              <a
-                class="text-red-600 rounded hover:text-red-700 active:bg-red-700/10 transition-all"
-                href="https://github.com/Torelli"
-                target="_blank"
-                >Giovanni Torelli
-              </a>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library App</title>
+  <link rel="stylesheet" href="./output.css" />
+</head>
+
+<body class="bg-white text-gray-900 dark:text-white dark:bg-gray-900 grid grid-rows-[auto_minmax(0,1fr)] font-sans">
+  <nav class="flex justify-between items-center px-4 pt-6 pb-4 border-b border-b-gray-200 dark:border-b-gray-200/5">
+    <div>
+      <h1 class="font-bold text-2xl">Library</h1>
+      <span class="text-xs text-slate-500">By</span>
+      <div class="text-xs group relative inline">
+        <a class="text-red-600 rounded hover:text-red-700 active:bg-red-700/10 transition-all"
+          href="https://github.com/Torelli" target="_blank">Giovanni Torelli
+        </a>
+        <div
+          class="opacity-0 -translate-x-1 whitespace-nowrap bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-center text-base rounded-lg py-2 absolute z-10 group-hover:translate-x-0 group-hover:opacity-100 -top-3 left-24 px-3 pointer-events-none transition-all">
+          Check out my GitHub!
+          <svg class="absolute text-gray-900 dark:text-white h-2 -left-2 bottom-4 rotate-90" x="0px" y="0px"
+            viewBox="0 0 255 255" xml:space="preserve">
+            <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button id="theme-btn" class="group relative">
+        <i class="fa-solid fa-circle-half-stroke text-2xl"></i>
+        <div id="theme-tooltip"
+          class="opacity-0 translate-x-1 whitespace-nowrap bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-center text-base rounded-lg py-2 absolute z-10 group-hover:translate-x-0 group-hover:opacity-100 -top-3 right-10 px-3 pointer-events-none transition-all">
+          Turn on dark mode
+          <svg class="absolute text-gray-900 dark:text-white h-2 -right-2 bottom-4 -rotate-90" x="0px" y="0px"
+            viewBox="0 0 255 255" xml:space="preserve">
+            <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+          </svg>
+        </div>
+      </button>
+    </div>
+  </nav>
+  <main class="p-4 grid grid-cols-[repeat(auto-fill,_minmax(250px,1fr))] auto-rows-[minmax(250px,_1fr)] gap-6">
+    <article
+      class="bg-white border border-gray-300 dark:border-gray-200/5 dark:bg-gray-900 border-l-8 border-l-indigo-600 dark:border-l-indigo-700 rounded-lg shadow">
+      <button id="btn-new-book"
+        class="group w-full h-full pt-8 pb-6 px-4 flex flex-col items-center justify-around text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-700">
+        <i class="fa-solid fa-circle-plus text-7xl group-hover:scale-105 transition-all"></i>
+        <h3 class="font-bold transition-all">Add book</h3>
+      </button>
+    </article>
+  </main>
+  <div id="modal" class="group relative z-10 aria-[modal=true]:visible aria-[modal=false]:animate-closeModal"
+    aria-labelledby="modal-title" role="dialog" aria-modal="false">
+    <!--Background backdrop, show/hide based on modal state.-->
+    <div
+      class="fixed inset-0 bg-gray-700 bg-opacity-80 backdrop-blur-sm group-aria-[modal=true]:opacity-100 group-aria-[modal=false]:opacity-0 transition-all">
+    </div>
+
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div
+          class="relative transform overflow-hidden rounded-lg bg-white dark:bg-slate-900 text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg group-aria-[modal=true]:opacity:100 group-aria-[modal=false]:opacity-0 group-aria-[modal=true]:translate-y-0 group-aria-[modal=false]:translate-y-4 group-aria-[modal=false]:sm:translate-y-0 group-aria-[modal=false]:sm:scale-95 group-aria-[modal=true]:sm:scale-100 transition-all">
+          <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 sm:flex sm:justify-between sm:px-6">
+            <div class="sm:flex sm:items-center sm:justify-around sm:gap-1">
               <div
-                  class="opacity-0 -translate-x-1 whitespace-nowrap bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-center text-base rounded-lg py-2 absolute z-10 group-hover:translate-x-0 group-hover:opacity-100 -top-3 left-24 px-3 pointer-events-none transition-all"
-                >
-                  Check out my GitHub!
-                  <svg
-                    class="absolute text-gray-900 dark:text-white h-2 -left-2 bottom-4 rotate-90"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 255 255"
-                    xml:space="preserve"
-                  >
-                    <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
-                  </svg>
-                </div>
+                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                <i class="fa-solid fa-circle-plus text-2xl text-indigo-700"></i>
+              </div>
+              <div class="mt-3 text-center sm:mt-0 sm:text-left">
+                <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white" id="modal-title">Add a new
+                  book</h3>
+              </div>
+            </div>
+            <button id="btn-close-modal">
+              <i class="fa-regular fa-circle-xmark text-gray-400 text-xl"></i>
+            </button>
           </div>
+          <div class="bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex flex-col items-center mt-2">
+            <div class="w-3/4 relative mb-6">
+              <input
+                class="w-full p-1 rounded bg-white dark:bg-gray-800 border border-gray-400 mb-4 focus-visible:outline-0 focus-visible:border-indigo-700 focus-visible:placeholder:invisible peer"
+                name="book-title" id="book-title" placeholder="Title *" type="text" required>
+              <label id="lbl-book-title" data-help="* This is a required field"
+                class="opacity-0 peer-focus-visible:opacity-100 peer-focus-visible:animate-fade py-1 text-sm absolute bottom-12 left-1 text-gray-900 dark:text-gray-400 peer-focus-visible:peer-invalid:after:content-[attr(data-help)] peer-focus-visible:peer-invalid:after:animate-help peer-focus-visible:peer-valid:after:opacity-0 transition-all after:absolute after:left-0 after:top-16 after:whitespace-nowrap"
+                for="book-title">Title
+              </label>
+            </div>
+            <div class="w-3/4 relative mb-6">
+              <input
+                class="w-full p-1 rounded bg-white dark:bg-gray-800 border border-gray-400 mb-4 focus-visible:outline-0 focus-visible:border-indigo-700 focus-visible:placeholder:invisible peer"
+                name="book-author" id="book-author" placeholder="Author *" type="text" required>
+              <label id="lbl-book-author" data-help="* This is a required field"
+              class="opacity-0 peer-focus-visible:opacity-100 peer-focus-visible:animate-fade py-1 text-sm absolute bottom-12 left-1 text-gray-900 dark:text-gray-400 peer-focus-visible:peer-invalid:after:content-[attr(data-help)] peer-focus-visible:peer-invalid:after:animate-help peer-focus-visible:peer-valid:after:opacity-0 transition-all after:absolute after:left-0 after:top-16 after:whitespace-nowrap"
+                for="book-author">Author
+              </label>
+            </div>
+            <div class="w-3/4 relative">
+              <textarea
+                class="w-full h-32 p-1 rounded resize-none bg-white dark:bg-gray-800 border border-gray-400 mb-4 focus-visible:outline-0 focus-visible:border-indigo-700 focus-visible:placeholder:invisible peer"
+                name="book-description" id="book-description" placeholder="Description"></textarea>
+              <label id="lbl-book-description"
+              class="opacity-0 peer-focus-visible:opacity-100 peer-focus-visible:animate-fade py-1 text-sm absolute bottom-[150px] left-1 text-gray-900 dark:text-gray-400 peer-focus-visible:peer-invalid:after:content-[attr(data-help)] peer-focus-visible:peer-invalid:after:animate-help peer-focus-visible:peer-valid:after:opacity-0 transition-all after:absolute after:left-0 after:top-16 after:whitespace-nowrap"
+                for="book-description">Description
+              </label>
+            </div>
+            <div class="flex flex-row-reverse justify-end gap-4 w-3/4 relative mb-6">
+              <input class="accent-indigo-600 dark:accent-indigo-700 scale-150" name="is-read" id="is-read"
+                type="checkbox">
+              <label class="text-lg" for="is-read">Have your read it?</label>
+            </div>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button type="button"
+              class="inline-flex w-full justify-center rounded-md bg-indigo-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 sm:ml-3 sm:w-auto">Add</button>
+            <button type="button"
+              class="mt-3 inline-flex w-full justify-center rounded-md bg-white dark:bg-gray-900 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 sm:mt-0 sm:w-auto">Cancel</button>
+          </div>
+        </div>
       </div>
-      <div>
-        <button id="theme-btn" class="group relative">
-          <i class="fa-solid fa-circle-half-stroke text-2xl"></i>
-          <div
-                  class="opacity-0 translate-x-1 whitespace-nowrap bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-center text-base rounded-lg py-2 absolute z-10 group-hover:translate-x-0 group-hover:opacity-100 -top-3 right-10 px-3 pointer-events-none transition-all"
-                >
-                  Turn on dark mode
-                  <svg
-                    class="absolute text-gray-900 dark:text-white h-2 -right-2 bottom-4 -rotate-90"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 255 255"
-                    xml:space="preserve"
-                  >
-                    <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
-                  </svg>
-                </div>
-        </button>
-      </div>
-    </nav>
-    <main class="p-4 grid grid-cols-[repeat(auto-fill,_minmax(250px,1fr))] auto-rows-[minmax(250px,_1fr)] gap-6">
-        <article class="flex flex-col items-center justify-around bg-white border border-gray-200 dark:border-gray-200/5 dark:bg-gray-900 border-l-8 border-l-amber-400 dark:border-l-amber-400  pt-8 pb-6 px-4 rounded-lg shadow">
-            <i class="fa-solid fa-circle-plus text-7xl cursor-pointer text-gray-700 hover:text-gray-900 hover:scale-105 dark:text-gray-700 dark:hover:text-white transition-all"></i>
-            <h3 class="font-bold">Add new book</h3>
-        </article>
-        
-    </main>
-    <script src="./script.js"></script>
-    <script
-      src="https://kit.fontawesome.com/eb34185c6d.js"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+  <script src="https://kit.fontawesome.com/eb34185c6d.js" crossorigin="anonymous"></script>
+</body>
+
 </html>
