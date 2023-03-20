@@ -179,14 +179,6 @@ function displayBooks() {
           1
         );
         displayBooks();
-        btnDeleteAppended.removeEventListener("click", () => {
-          myLibrary.splice(
-            myLibrary.findIndex((obj) => obj.title === book.title),
-            1
-          );
-          displayBooks();
-          btnDeleteAppended.removeEventListener("click");
-        });
       });
     }
   }
