@@ -32,129 +32,163 @@ function resetBtnNewBook() {
 }
 
 function displayBooks() {
-  bookContainer.setHTML(defaultBtnNewBook, { sanitizer: sanitizer1 });
-  resetBtnNewBook();
-  for (let book of myLibrary) {
-    const article = document.createElement("article");
-    article.classList.add(
-      "bg-white",
-      "pt-8",
-      "pb-6",
-      "px-4",
-      "border",
-      "border-gray-300",
-      "dark:border-gray-200/5",
-      "dark:bg-gray-900",
-      "border-l-8",
-      "border-l-indigo-600",
-      "dark:border-l-indigo-700",
-      "rounded-lg",
-      "shadow"
-    );
+  if (myLibrary != []) {
+    bookContainer.setHTML(defaultBtnNewBook, { sanitizer: sanitizer1 });
+    resetBtnNewBook();
+    for (let book of myLibrary) {
+      const article = document.createElement("article");
+      article.classList.add(
+        "bg-white",
+        "pt-8",
+        "pb-6",
+        "px-4",
+        "border",
+        "border-gray-300",
+        "dark:border-gray-200/5",
+        "dark:bg-gray-900",
+        "border-l-8",
+        "border-l-indigo-600",
+        "dark:border-l-indigo-700",
+        "rounded-lg",
+        "shadow"
+      );
 
-    const title = document.createElement("h3");
-    title.classList.add("font-bold");
-    title.textContent = book.title;
-    article.appendChild(title);
+      const title = document.createElement("h3");
+      title.classList.add("font-bold");
+      title.textContent = book.title;
+      article.appendChild(title);
 
-    const author = document.createElement("p");
-    author.classList.add(
-      "text-gray-500",
-      "dark:text-gray-400",
-      "pl-2",
-      "text-sm",
-      "italic"
-    );
-    author.textContent = book.author;
-    article.appendChild(author);
+      const author = document.createElement("p");
+      author.classList.add(
+        "text-gray-500",
+        "dark:text-gray-400",
+        "pl-2",
+        "text-sm",
+        "italic"
+      );
+      author.textContent = book.author;
+      article.appendChild(author);
 
-    const description = document.createElement("p");
-    description.classList.add(
-      "h-24",
-      "pl-4",
-      "text-xs",
-      "text-gray-500",
-      "dark:text-gray-400",
-      "line-clamp-6"
-    );
-    description.textContent = book.description;
-    article.appendChild(description);
+      const description = document.createElement("p");
+      description.classList.add(
+        "h-24",
+        "pl-4",
+        "text-xs",
+        "text-gray-500",
+        "dark:text-gray-400",
+        "line-clamp-6"
+      );
+      description.textContent = book.description;
+      article.appendChild(description);
 
-    const buttons = document.createElement("div");
-    buttons.classList.add("mt-4", "flex", "justify-end", "gap-4", "text-lg");
+      const buttons = document.createElement("div");
+      buttons.classList.add("mt-4", "flex", "justify-end", "gap-4", "text-lg");
 
-    const btnInfo = document.createElement("button");
-    btnInfo.classList.add(
-      "outline-none",
-      "outline-0",
-      "hover:text-slate-600",
-      "focus-visible:text-slate-600",
-      "focus-visible:ring-2",
-      "focus-visible:ring-slate-700"
-    );
-    btnInfo.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
-    buttons.appendChild(btnInfo);
+      const btnInfo = document.createElement("button");
+      btnInfo.classList.add(
+        "outline-none",
+        "outline-0",
+        "hover:text-slate-600",
+        "focus-visible:text-slate-600",
+        "focus-visible:ring-2",
+        "focus-visible:ring-slate-700"
+      );
+      btnInfo.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+      buttons.appendChild(btnInfo);
 
-    const btnRead = document.createElement("button");
-    btnRead.classList.add(
-      "outline-none",
-      "outline-0",
-      "hover:text-slate-600",
-      "focus-visible:text-slate-600",
-      "focus-visible:ring-2",
-      "focus-visible:ring-slate-700"
-    );
-    if (book.isRead) {
-      btnRead.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
-    } else {
-      btnRead.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
-    }
-    btnRead.setAttribute(
-      "id",
-      `book-${myLibrary.findIndex((obj) => obj.title === book.title)}`
-    );
-    buttons.appendChild(btnRead);
-
-    const btnDelete = document.createElement("button");
-    btnDelete.classList.add(
-      "outline-none",
-      "outline-0",
-      "hover:text-slate-600",
-      "focus-visible:text-slate-600",
-      "focus-visible:ring-2",
-      "focus-visible:ring-slate-700"
-    );
-    btnDelete.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-    buttons.appendChild(btnDelete);
-
-    article.appendChild(buttons);
-
-    bookContainer.appendChild(article);
-
-    const btnIsRead = document.querySelector(
-      `#book-${myLibrary.findIndex((obj) => obj.title === book.title)}`
-    );
-
-    btnIsRead.addEventListener("click", () => {
+      const btnRead = document.createElement("button");
+      btnRead.classList.add(
+        "outline-none",
+        "outline-0",
+        "hover:text-slate-600",
+        "focus-visible:text-slate-600",
+        "focus-visible:ring-2",
+        "focus-visible:ring-slate-700"
+      );
       if (book.isRead) {
-        btnIsRead.firstChild.classList.remove("fa-solid", "fa-bookmark");
-        btnIsRead.firstChild.classList.add("fa-regular", "fa-bookmark");
-        myLibrary.map((obj) => {
-          if (obj.title === book.title) {
-            obj.isRead = false;
-          }
-        });
+        btnRead.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
       } else {
-        btnIsRead.firstChild.classList.remove("fa-regular", "fa-bookmark");
-        btnIsRead.firstChild.classList.add("fa-solid", "fa-bookmark");
-        myLibrary.map((obj) => {
-          if (obj.title === book.title) {
-            obj.isRead = true;
-          }
-        });
+        btnRead.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
       }
-      console.log(myLibrary[myLibrary.findIndex((obj) => obj.title === book.title)]);
-    });
+      btnRead.setAttribute(
+        "id",
+        `btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+      );
+      buttons.appendChild(btnRead);
+
+      const btnDelete = document.createElement("button");
+      btnDelete.classList.add(
+        "outline-none",
+        "outline-0",
+        "hover:text-slate-600",
+        "focus-visible:text-slate-600",
+        "focus-visible:ring-2",
+        "focus-visible:ring-slate-700"
+      );
+      btnDelete.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+      btnDelete.setAttribute(
+        "id",
+        `btn-delete-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+      );
+      buttons.appendChild(btnDelete);
+
+      article.appendChild(buttons);
+
+      bookContainer.appendChild(article);
+
+      const btnIsReadAppended = document.querySelector(
+        `#btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+      );
+
+      btnIsReadAppended.addEventListener("click", () => {
+        if (book.isRead) {
+          btnIsReadAppended.firstChild.classList.remove(
+            "fa-solid",
+            "fa-bookmark"
+          );
+          btnIsReadAppended.firstChild.classList.add(
+            "fa-regular",
+            "fa-bookmark"
+          );
+          myLibrary.map((obj) => {
+            if (obj.title === book.title) {
+              obj.isRead = false;
+            }
+          });
+        } else {
+          btnIsReadAppended.firstChild.classList.remove(
+            "fa-regular",
+            "fa-bookmark"
+          );
+          btnIsReadAppended.firstChild.classList.add("fa-solid", "fa-bookmark");
+          myLibrary.map((obj) => {
+            if (obj.title === book.title) {
+              obj.isRead = true;
+            }
+          });
+        }
+      });
+
+      const btnDeleteAppended = document.querySelector(
+        `#btn-delete-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+      );
+
+      btnDeleteAppended.addEventListener("click", () => {
+        myLibrary.splice(
+          myLibrary.findIndex((obj) => obj.title === book.title),
+          1
+        );
+        displayBooks();
+        btnDeleteAppended.removeEventListener("click", () => {
+          myLibrary.splice(
+            myLibrary.findIndex((obj) => obj.title === book.title),
+            1
+          );
+          displayBooks();
+          btnDeleteAppended.removeEventListener("click");
+        });
+      });
+    }
   }
 }
 
@@ -225,7 +259,6 @@ btnAddBook.addEventListener("click", (e) => {
 });
 
 themeButton.addEventListener("click", () => {
-  console.log(localStorage.theme);
   if (document.documentElement.classList.contains("dark")) {
     localStorage.theme = "light";
     changeTheme();
