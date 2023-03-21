@@ -11,6 +11,11 @@ const modal = document.querySelector("#modal");
 const modalWithin = document.querySelector("#modal-within");
 const modalOut = document.querySelector("#modal-out");
 const bookContainer = document.querySelector("#book-container");
+const formNewBook = document.querySelector("#form-new-book");
+const modalTitle = document.querySelector("#modal-title");
+const infoModal = document.querySelector("#info-modal");
+const authorModal = document.querySelector("#author-modal");
+const modalIcon = document.querySelector("#modal-icon");
 const defaultBtnNewBook = bookContainer.innerHTML;
 const sanitizer1 = new Sanitizer();
 
@@ -26,9 +31,9 @@ function Book(title, author, description, isRead) {
 }
 
 function resetBtnNewBook() {
-  btnNewBook.removeEventListener("click", toggleModal);
+  btnNewBook.removeEventListener("click", () => toggleForm());
   btnNewBook = document.querySelector("#btn-new-book");
-  btnNewBook.addEventListener("click", toggleModal);
+  btnNewBook.addEventListener("click", () => toggleForm());
 }
 
 function displayBooks() {
@@ -60,13 +65,16 @@ function displayBooks() {
 
       const author = document.createElement("p");
       author.classList.add(
+        "before:content-['By']",
+        "before:not-italic",
         "text-gray-500",
         "dark:text-gray-400",
         "pl-2",
+        "mb-2",
         "text-sm",
         "italic"
       );
-      author.textContent = book.author;
+      author.textContent = ` ${book.author}`;
       article.appendChild(author);
 
       const description = document.createElement("p");
@@ -94,6 +102,10 @@ function displayBooks() {
         "focus-visible:ring-slate-700"
       );
       btnInfo.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+      btnInfo.setAttribute(
+        "id",
+        `btn-info-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+      );
       buttons.appendChild(btnInfo);
 
       const btnRead = document.createElement("button");
@@ -135,6 +147,14 @@ function displayBooks() {
       article.appendChild(buttons);
 
       bookContainer.appendChild(article);
+
+      const btnInfoAppended = document.querySelector(
+        `#btn-info-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+      );
+
+      btnInfoAppended.addEventListener("click", () => {
+        toggleForm("close", book.title, book.author, book.description);
+      });
 
       const btnIsReadAppended = document.querySelector(
         `#btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title)}`
@@ -205,6 +225,35 @@ function toggleModal() {
   }
 }
 
+function toggleForm(
+  func = "open",
+  title = "Add a new book",
+  author = "",
+  description = ""
+) {
+  if (func == "open") {
+    infoModal.classList.add("hidden");
+    authorModal.classList.add("hidden");
+    formNewBook.classList.remove("hidden");
+    modalIcon.classList.remove("fa-book-open");
+    btnAddBook.classList.remove("hidden");
+    btnCancel.textContent = "Cancel";
+    modalIcon.classList.add("fa-circle-plus");
+  } else {
+    formNewBook.classList.add("hidden");
+    btnAddBook.classList.add("hidden");
+    btnCancel.textContent = "Close";
+    authorModal.classList.remove("hidden");
+    infoModal.classList.remove("hidden");
+    modalIcon.classList.remove("fa-circle-plus");
+    modalIcon.classList.add("fa-book-open");
+  }
+  authorModal.textContent = ` ${author}`;
+  infoModal.textContent = description;
+  modalTitle.textContent = title;
+  toggleModal();
+}
+
 function modalClick(e) {
   e.stopPropagation();
   e.stopImmediatePropagation();
@@ -233,7 +282,7 @@ btnCancel.addEventListener("click", toggleModal);
 
 modalOut.addEventListener("click", toggleModal);
 
-btnNewBook.addEventListener("click", toggleModal);
+btnNewBook.addEventListener("click", () => toggleForm());
 
 modalWithin.addEventListener("click", modalClick);
 
