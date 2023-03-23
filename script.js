@@ -3,6 +3,7 @@ const themeTooltip = document.querySelector("#theme-tooltip");
 const btnCloseModal = document.querySelector("#btn-close-modal");
 const btnCancel = document.querySelector("#btn-cancel");
 const bookTitle = document.querySelector("#book-title");
+const labelBookTitle = document.querySelector("#lbl-book-title");
 const bookAuthor = document.querySelector("#book-author");
 const bookDescription = document.querySelector("#book-description");
 const bookIsRead = document.querySelector("#is-read");
@@ -104,12 +105,14 @@ function displayBooks() {
       btnInfo.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
       btnInfo.setAttribute(
         "id",
-        `btn-info-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+        `btn-info-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
       );
       buttons.appendChild(btnInfo);
 
       const btnRead = document.createElement("button");
       btnRead.classList.add(
+        "group",
+        "relative",
         "outline-none",
         "outline-0",
         "hover:text-slate-600",
@@ -118,13 +121,29 @@ function displayBooks() {
         "focus-visible:ring-slate-700"
       );
       if (book.isRead) {
-        btnRead.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
+        btnRead.innerHTML = `<i class="fa-solid fa-bookmark"></i>
+        <div
+          class="opacity-0 -translate-y-1 whitespace-nowrap bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-center text-base rounded-lg py-2 absolute z-10 group-hover:translate-y-0 group-hover:opacity-100 top-10 -left-6 px-3 pointer-events-none transition-all">
+          <span id="read-tooltip">Read</span>
+          <svg class="absolute text-gray-900 dark:text-white rotate-180 h-2 bottom-10 left-[1.7rem]" x="0px" y="0px"
+            viewBox="0 0 255 255" xml:space="preserve">
+            <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+          </svg>
+        </div>`;
       } else {
-        btnRead.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+        btnRead.innerHTML = `<i class="fa-regular fa-bookmark"></i>
+        <div
+          class="opacity-0 -translate-y-1 whitespace-nowrap bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-center text-base rounded-lg py-2 absolute z-10 group-hover:translate-y-0 group-hover:opacity-100 top-10 -left-6 px-3 pointer-events-none transition-all">
+          <span id="read-tooltip">Not read</span>
+          <svg class="absolute text-gray-900 dark:text-white rotate-180 h-2 bottom-10 left-[1.7rem]" x="0px" y="0px"
+            viewBox="0 0 255 255" xml:space="preserve">
+            <polygon class="fill-current" points="0,0 127.5,127.5 255,0" />
+          </svg>
+        </div>`;
       }
       btnRead.setAttribute(
         "id",
-        `btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+        `btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
       );
       buttons.appendChild(btnRead);
 
@@ -140,7 +159,7 @@ function displayBooks() {
       btnDelete.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
       btnDelete.setAttribute(
         "id",
-        `btn-delete-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+        `btn-delete-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
       );
       buttons.appendChild(btnDelete);
 
@@ -149,7 +168,7 @@ function displayBooks() {
       bookContainer.appendChild(article);
 
       const btnInfoAppended = document.querySelector(
-        `#btn-info-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+        `#btn-info-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
       );
 
       btnInfoAppended.addEventListener("click", () => {
@@ -157,7 +176,7 @@ function displayBooks() {
       });
 
       const btnIsReadAppended = document.querySelector(
-        `#btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+        `#btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
       );
 
       btnIsReadAppended.addEventListener("click", () => {
@@ -170,8 +189,9 @@ function displayBooks() {
             "fa-regular",
             "fa-bookmark"
           );
+          document.querySelector("#read-tooltip").textContent = "Not read";
           myLibrary.map((obj) => {
-            if (obj.title === book.title) {
+            if (obj.title === book.title && obj.author === book.author) {
               obj.isRead = false;
             }
           });
@@ -181,8 +201,9 @@ function displayBooks() {
             "fa-bookmark"
           );
           btnIsReadAppended.firstChild.classList.add("fa-solid", "fa-bookmark");
+          document.querySelector("#read-tooltip").textContent = "Read";
           myLibrary.map((obj) => {
-            if (obj.title === book.title) {
+            if (obj.title === book.title && obj.author === book.author) {
               obj.isRead = true;
             }
           });
@@ -190,12 +211,16 @@ function displayBooks() {
       });
 
       const btnDeleteAppended = document.querySelector(
-        `#btn-delete-${myLibrary.findIndex((obj) => obj.title === book.title)}`
+        `#btn-delete-${myLibrary.findIndex(
+          (obj) => obj.title === book.title && obj.author === book.author
+        )}`
       );
 
       btnDeleteAppended.addEventListener("click", () => {
         myLibrary.splice(
-          myLibrary.findIndex((obj) => obj.title === book.title),
+          myLibrary.findIndex(
+            (obj) => obj.title === book.title && obj.author === book.author
+          ),
           1
         );
         displayBooks();
@@ -212,8 +237,30 @@ function cleanForm() {
 }
 
 function addBookToLibrary(title, author, description, isRead) {
-  myLibrary.push(new Book(title, author, description, isRead));
-  displayBooks();
+  if (
+    myLibrary.some((book) => title === book.title && author === book.author)
+  ) {
+    labelBookTitle.setAttribute(
+      "data-help",
+      "This book already exists in your library"
+    );
+    bookTitle.focus();
+    labelBookTitle.classList.remove(
+      "peer-focus-visible:peer-valid:after:opacity-0"
+    );
+    labelBookTitle.classList.remove("peer-focus-visible:animate-fade");
+    labelBookTitle.classList.add("peer-focus-visible:animate-alert");
+  } else {
+    labelBookTitle.setAttribute("data-help", "* This is a required field");
+    labelBookTitle.classList.remove("peer-focus-visible:animate-alert");
+    labelBookTitle.classList.add("peer-focus-visible:animate-fade");
+    labelBookTitle.classList.add(
+      "peer-focus-visible:peer-valid:after:opacity-0"
+    );
+    myLibrary.push(new Book(title, author, description, isRead));
+    displayBooks();
+    toggleModal();
+  }
 }
 
 function toggleModal() {
@@ -295,7 +342,6 @@ btnAddBook.addEventListener("click", (e) => {
       bookDescription.value,
       bookIsRead.checked
     );
-    toggleModal();
   }
 });
 

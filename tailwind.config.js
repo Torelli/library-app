@@ -33,6 +33,7 @@ module.exports = {
       animation: {
         fade: 'fade 0.2s',
         help: 'help 80s',
+        alert: 'help 0.2s',
         closeModal: 'closeModal 0s forwards 0.15s'
       }
     },
