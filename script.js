@@ -338,8 +338,14 @@ function changeTheme() {
 
 document.onload = changeTheme();
 
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape" && modal.getAttribute("aria-modal") === "true") {
+    toggleModal();
+  }
+});
+
 document.addEventListener("keydown", function (e) {
-  let isTabPressed = e.key === "Tab" || e.keyCode === 9;
+  let isTabPressed = e.key === "Tab";
 
   if (!isTabPressed) {
     return;
