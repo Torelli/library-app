@@ -63,14 +63,14 @@
     <div class="fixed inset-0 z-10 overflow-y-auto">
       <div id="modal-out" class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         <div id="modal-within"
-          class="relative transform overflow-hidden rounded-lg bg-white dark:bg-slate-900 text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg group-aria-[modal=true]:opacity:100 group-aria-[modal=false]:opacity-0 group-aria-[modal=true]:translate-y-0 group-aria-[modal=false]:translate-y-4 group-aria-[modal=false]:sm:translate-y-0 group-aria-[modal=false]:sm:scale-95 group-aria-[modal=true]:sm:scale-100 transition-all">
-          <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 sm:flex sm:justify-between sm:px-6">
-            <div class="sm:flex sm:items-center sm:justify-around sm:gap-1">
+          class="flex-1 relative transform overflow-hidden rounded-lg bg-white dark:bg-slate-900 text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg group-aria-[modal=true]:opacity:100 group-aria-[modal=false]:opacity-0 group-aria-[modal=true]:translate-y-0 group-aria-[modal=false]:translate-y-4 group-aria-[modal=false]:sm:translate-y-0 group-aria-[modal=false]:sm:scale-95 group-aria-[modal=true]:sm:scale-100 transition-all">
+          <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 flex justify-between sm:px-6">
+            <div class="flex items-center sm:justify-around sm:gap-1">
               <div
-                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full">
                 <i id="modal-icon" class="fa-solid fa-circle-plus text-2xl text-indigo-700"></i>
               </div>
-              <div class="mt-3 text-center sm:mt-0 sm:text-left">
+              <div class="text-center sm:mt-0 sm:text-left">
                 <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white" id="modal-title">Add a new
                   book</h3>
               </div>

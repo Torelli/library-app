@@ -669,6 +669,10 @@ video {
   height: 100%;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
 .min-h-full {
   min-height: 100%;
 }
@@ -683,6 +687,14 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-10 {
+  width: 2.5rem;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
 }
 
 .flex-shrink-0 {
@@ -759,6 +771,10 @@ video {
 
 .items-center {
   align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-end {
@@ -1240,20 +1256,6 @@ video {
   opacity: 1;
 }
 
-@keyframes fade {
-  0% {
-    transform: translateY(-1.4em);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-.peer:focus-visible ~ .peer-focus-visible\:animate-fade {
-  animation: fade 0.2s;
-}
-
 @keyframes help {
   0%, 4% {
     opacity: 0;
@@ -1268,25 +1270,22 @@ video {
   animation: help 0.2s;
 }
 
+@keyframes fade {
+  0% {
+    transform: translateY(-1.4em);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.peer:focus-visible ~ .peer-focus-visible\:animate-fade {
+  animation: fade 0.2s;
+}
+
 .peer:focus-visible ~ .peer-focus-visible\:opacity-100 {
   opacity: 1;
-}
-
-@keyframes help {
-  0%, 4% {
-    content: var(--tw-content);
-    opacity: 0;
-  }
-
-  5%, 100% {
-    content: var(--tw-content);
-    opacity: 1;
-  }
-}
-
-.peer:focus-visible ~ .peer-focus-visible\:after\:animate-alert::after {
-  content: var(--tw-content);
-  animation: help 0.2s;
 }
 
 .peer:focus-visible ~ .peer-focus-visible\:after\:content-\[attr\(data-help\)\]::after {
@@ -1483,6 +1482,10 @@ video {
 
   .sm\:items-center {
     align-items: center;
+  }
+
+  .sm\:justify-center {
+    justify-content: center;
   }
 
   .sm\:justify-between {
