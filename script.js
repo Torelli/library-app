@@ -17,6 +17,11 @@ const modalTitle = document.querySelector("#modal-title");
 const infoModal = document.querySelector("#info-modal");
 const authorModal = document.querySelector("#author-modal");
 const modalIcon = document.querySelector("#modal-icon");
+const focusableElements =
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
+const focusableContent = modal.querySelectorAll(focusableElements);
+const lastFocusableElement = focusableContent[focusableContent.length - 1];
 const defaultBtnNewBook = bookContainer.innerHTML;
 const sanitizer1 = new Sanitizer();
 
@@ -105,7 +110,9 @@ function displayBooks() {
       btnInfo.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
       btnInfo.setAttribute(
         "id",
-        `btn-info-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
+        `btn-info-${myLibrary.findIndex(
+          (obj) => obj.title === book.title && obj.author === book.author
+        )}`
       );
       buttons.appendChild(btnInfo);
 
@@ -143,7 +150,9 @@ function displayBooks() {
       }
       btnRead.setAttribute(
         "id",
-        `btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
+        `btn-isRead-${myLibrary.findIndex(
+          (obj) => obj.title === book.title && obj.author === book.author
+        )}`
       );
       buttons.appendChild(btnRead);
 
@@ -159,7 +168,9 @@ function displayBooks() {
       btnDelete.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
       btnDelete.setAttribute(
         "id",
-        `btn-delete-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
+        `btn-delete-${myLibrary.findIndex(
+          (obj) => obj.title === book.title && obj.author === book.author
+        )}`
       );
       buttons.appendChild(btnDelete);
 
@@ -168,7 +179,9 @@ function displayBooks() {
       bookContainer.appendChild(article);
 
       const btnInfoAppended = document.querySelector(
-        `#btn-info-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
+        `#btn-info-${myLibrary.findIndex(
+          (obj) => obj.title === book.title && obj.author === book.author
+        )}`
       );
 
       btnInfoAppended.addEventListener("click", () => {
@@ -176,7 +189,9 @@ function displayBooks() {
       });
 
       const btnIsReadAppended = document.querySelector(
-        `#btn-isRead-${myLibrary.findIndex((obj) => obj.title === book.title && obj.author === book.author)}`
+        `#btn-isRead-${myLibrary.findIndex(
+          (obj) => obj.title === book.title && obj.author === book.author
+        )}`
       );
 
       btnIsReadAppended.addEventListener("click", () => {
@@ -322,6 +337,31 @@ function changeTheme() {
 }
 
 document.onload = changeTheme();
+
+document.addEventListener("keydown", function (e) {
+  let isTabPressed = e.key === "Tab" || e.keyCode === 9;
+
+  if (!isTabPressed) {
+    return;
+  }
+
+  if (e.shiftKey) {
+    // if shift key pressed for shift + tab combination
+    if (document.activeElement === firstFocusableElement) {
+      lastFocusableElement.focus(); // add focus for the last focusable element
+      e.preventDefault();
+    }
+  } else {
+    // if tab key is pressed
+    if (document.activeElement === lastFocusableElement) {
+      // if focused has reached to last focusable element then focus first focusable element after pressing tab
+      firstFocusableElement.focus(); // add focus for the first focusable element
+      e.preventDefault();
+    }
+  }
+});
+
+firstFocusableElement.focus();
 
 btnCloseModal.addEventListener("click", toggleModal);
 
