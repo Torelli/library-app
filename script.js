@@ -22,8 +22,9 @@ const focusableElements =
 const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
 const focusableContent = modal.querySelectorAll(focusableElements);
 const lastFocusableElement = focusableContent[focusableContent.length - 1];
-const defaultBtnNewBook = bookContainer.innerHTML;
-const sanitizer1 = new Sanitizer();
+const defaultBtnNewBook = `<article class="bg-white border border-gray-300 dark:border-gray-200/5 dark:bg-gray-900 border-l-8 border-l-indigo-600 dark:border-l-indigo-700 rounded-lg shadow"><button id="btn-new-book" class="group w-full h-full pt-8 pb-6 px-4 flex flex-col items-center justify-around text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-700"> <i class="fa-solid fa-circle-plus text-7xl group-hover:scale-105 transition-all"></i> <h3 class="font-bold transition-all">Add book</h3></button></article>`;
+
+let isBtnNewBook = false;
 
 let btnNewBook = document.querySelector("#btn-new-book");
 
@@ -37,15 +38,15 @@ function Book(title, author, description, isRead) {
 }
 
 function resetBtnNewBook() {
-  btnNewBook.removeEventListener("click", () => toggleForm());
+  if (isBtnNewBook) btnNewBook.removeEventListener("click", () => toggleForm());
   btnNewBook = document.querySelector("#btn-new-book");
   btnNewBook.addEventListener("click", () => toggleForm());
 }
 
 function displayBooks() {
+  bookContainer.innerHTML = defaultBtnNewBook;
+  resetBtnNewBook();
   if (myLibrary != []) {
-    bookContainer.setHTML(defaultBtnNewBook, { sanitizer: sanitizer1 });
-    resetBtnNewBook();
     for (let book of myLibrary) {
       const article = document.createElement("article");
       article.classList.add(
@@ -339,7 +340,7 @@ function changeTheme() {
 document.onload = changeTheme();
 
 document.addEventListener("keydown", (e) => {
-  if(e.key === "Escape" && modal.getAttribute("aria-modal") === "true") {
+  if (e.key === "Escape" && modal.getAttribute("aria-modal") === "true") {
     toggleModal();
   }
 });
@@ -367,6 +368,8 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
+displayBooks();
+
 firstFocusableElement.focus();
 
 btnCloseModal.addEventListener("click", toggleModal);
@@ -374,8 +377,6 @@ btnCloseModal.addEventListener("click", toggleModal);
 btnCancel.addEventListener("click", toggleModal);
 
 modalOut.addEventListener("click", toggleModal);
-
-btnNewBook.addEventListener("click", () => toggleForm());
 
 modalWithin.addEventListener("click", modalClick);
 
