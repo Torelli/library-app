@@ -30,11 +30,13 @@ let btnNewBook = document.querySelector("#btn-new-book");
 
 let myLibrary = [];
 
-function Book(title, author, description, isRead) {
-  this.title = title;
-  this.author = author;
-  this.description = description;
-  this.isRead = isRead;
+class Book {
+  constructor (title, author, description, isRead) {
+    this.title = title;
+    this.author = author;
+    this.description = description;
+    this.isRead = isRead;
+  }
 }
 
 function resetBtnNewBook() {
